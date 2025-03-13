@@ -1,0 +1,10 @@
+services:
+  torrent-check:
+    image: xmseed234/torrent-check
+    container_name: torrent-check
+    volumes:
+      - /mnt/media/Downloads/torrents/archive:/app/torrent-folder
+      - /mnt/media/Downloads/torrents:/torrents
+    stdin_open: true  # keep stdin open (for `-i` or `--interactive`)
+    tty: true         # allocate a pseudo-TTY (for `-t` or `--tty`)
+    command: /bin/sh  # start an interactive shell

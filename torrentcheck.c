@@ -16,6 +16,23 @@
 #include <malloc.h>
 #include <string.h>
 
+
+long beStepOver(const char *benc, long len, long offset) {
+    if (benc[offset] == 'i') {
+        return strchr(benc + offset, 'e') - benc + 1;
+    } else if (benc[offset] == 'l' || benc[offset] == 'd') {
+        offset++;
+        while (benc[offset] != 'e') {
+            offset = beStepOver(benc, len, offset);
+        }
+        return offset + 1;
+    } else {
+        char *endptr;
+        long str_len = strtol(benc + offset, &endptr, 10);
+        return (endptr - benc) + str_len + 1;
+    }
+}
+
 // Begin required for SHA1
 typedef unsigned char *POINTER;
 typedef unsigned int UINT4;
